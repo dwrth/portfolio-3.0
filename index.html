@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>David Werth - Portfolio</title>
+
+    <!-- Geist Mono font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg: #050609;
+        --bg-elevated: #050609;
+        --fg: #f5f5f5;
+        --fg-soft: #a0a4b5;
+        --accent: #ff9f43;
+        --border-subtle: rgba(245, 245, 245, 0.16);
+        --radius-lg: 8px;
+        --radius-md: 4px;
+        --transition-fast: 200ms ease-out;
+        --font-xs: 11px;
+        --font-sm: 12px;
+        --font-md: 13px;
+        --font-lg: 14px;
+        --font-body: 17px;
+        --font-xl: 28px;
+      }
+
+      @media (prefers-color-scheme: light) {
+        :root {
+          --bg: #f5f5f5;
+          --bg-elevated: #f5f5f5;
+          --fg: #111111;
+          --fg-soft: #555555;
+          --accent: #ff9f43;
+          --border-subtle: rgba(0, 0, 0, 0.16);
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Geist Mono", system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        font-size: var(--font-body);
+        background: var(--bg);
+        color: var(--fg);
+        -webkit-font-smoothing: antialiased;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) transparent;
+      }
+
+      body::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      body::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      body::-webkit-scrollbar-thumb {
+        background-color: var(--border-subtle);
+        border-radius: 999px;
+      }
+
+      .shell {
+        width: 100%;
+        max-width: 96ch;
+        max-height: calc(100vh - 80px);
+        margin: 0 auto;
+        border-radius: var(--radius-lg);
+        background: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .shell-header {
+        padding: 10px 14px;
+        border-bottom: 1px solid var(--border-subtle);
+      }
+
+      .header-title {
+        font-size: var(--font-sm);
+        color: var(--fg-soft);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .shell-body {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent) transparent;
+      }
+
+      .shell-body::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .shell-body::-webkit-scrollbar-track {
+        background: transparent;
+      }
+
+      .shell-body::-webkit-scrollbar-thumb {
+        background-color: var(--border-subtle);
+        border-radius: 999px;
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 10px;
+        }
+
+        .shell {
+          border-radius: 0;
+          max-width: 100%;
+        }
+      }
+
+      .block {
+        border-radius: 0;
+        border-top: 1px solid var(--border-subtle);
+        padding: 10px 0 8px;
+      }
+
+      .block + .block {
+        margin-top: 12px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0;
+        font-size: var(--font-sm);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--fg-soft);
+      }
+
+      .pill-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        border: 1px solid var(--accent);
+        box-shadow: 0 0 0 1px rgba(143, 155, 255, 0.35);
+      }
+
+      h1 {
+        margin: 10px 0 4px;
+        font-weight: 500;
+        font-size: var(--font-xl);
+        letter-spacing: 0.03em;
+      }
+
+      .role {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: var(--font-md);
+        color: var(--fg-soft);
+      }
+
+      .role-badge {
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border-subtle);
+        background: rgba(0, 0, 0, 0.02);
+        font-size: var(--font-xs);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        font-size: var(--font-sm);
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--fg-soft);
+        margin-bottom: 8px;
+      }
+
+      .section-body {
+        font-size: var(--font-lg);
+        line-height: 1.7;
+        color: var(--fg-soft);
+      }
+
+      .mono-soft {
+        opacity: 0.9;
+      }
+
+      .skills-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 10px;
+      }
+
+      .location-row {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: var(--font-sm);
+        color: var(--fg-soft);
+      }
+
+      .location-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .links-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .link-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .skill-chip {
+        padding: 2px 8px;
+        border-radius: 999px;
+        border: 1px solid var(--border-subtle);
+        font-size: var(--font-sm);
+        color: var(--fg-soft);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a.underline {
+        position: relative;
+      }
+
+      a.underline::after {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        bottom: -2px;
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          var(--accent),
+          transparent
+        );
+        transform-origin: center;
+        transform: scaleX(0);
+        opacity: 0;
+        transition: transform var(--transition-fast),
+          opacity var(--transition-fast);
+      }
+
+      a.underline:hover::after {
+        transform: scaleX(1);
+        opacity: 1;
+      }
+
+      strong {
+        color: var(--fg);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="shell" aria-label="Portfolio of David Werth">
+      <header class="shell-header">
+        <div class="header-title">/dwrth/portfolio</div>
+        <div style="width: 44px"></div>
+      </header>
+
+      <section class="shell-body">
+        <section aria-labelledby="hero">
+          <div class="block">
+            <div class="pill">
+              <span class="pill-dot"></span>
+              <span>Software Engineer</span>
+              <span class="location-row">
+                <span class="location-icon" aria-hidden="true">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="13"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M8 2.5a3.25 3.25 0 0 0-3.25 3.25c0 1.94 1.63 3.86 2.8 4.94.27.25.52.45.73.6.21-.15.46-.35.73-.6 1.17-1.08 2.8-3 2.8-4.94A3.25 3.25 0 0 0 8 2.5Z"
+                      stroke="currentColor"
+                      stroke-width="1.1"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <circle
+                      cx="8"
+                      cy="5.75"
+                      r="1.35"
+                      stroke="currentColor"
+                      stroke-width="1.1"
+                    />
+                  </svg>
+                </span>
+                <span>Leipzig, DE</span>
+              </span>
+            </div>
+            <h1 id="hero">David Werth</h1>
+            <div class="role">
+              <span class="mono-soft">
+                <strong>Fullstack Developer</strong> @
+                <span style="color: var(--fg)">
+                  <a
+                    href="https://stuzubi.de"
+                    style="text-decoration: none"
+                    class="underline"
+                  >
+                    Stuzubi
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-label="external link"
+                      style="
+                        display: inline;
+                        vertical-align: middle;
+                        margin-left: 2px;
+                      "
+                      width="13"
+                      height="13"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M10.5 3.5H4.75A1.25 1.25 0 0 0 3.5 4.75v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V8.5"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.5 3.5h-2m2 0v2M12.5 3.5l-4.5 4.5"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                  /
+                  <a
+                    href="https://vystem.io"
+                    style="text-decoration: none"
+                    class="underline"
+                  >
+                    vystem
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-label="external link"
+                      style="
+                        display: inline;
+                        vertical-align: middle;
+                        margin-left: 2px;
+                      "
+                      width="13"
+                      height="13"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <path
+                        d="M10.5 3.5H4.75A1.25 1.25 0 0 0 3.5 4.75v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V8.5"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                      <path
+                        d="M12.5 3.5h-2m2 0v2M12.5 3.5l-4.5 4.5"
+                        stroke="currentColor"
+                        stroke-width="1.2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                  <span> · remote in Karlsfeld, DE</span>
+                </span>
+                >
+              </span>
+            </div>
+            <div class="section-body" style="margin-top: 12px">
+              At <strong>vystem</strong> I design and build the event platform
+              behind tailored hybrid and online events &mdash; from ticketing
+              and guest management to live streaming and real-time video
+              interactions.
+              <br />
+              At <strong>Stuzubi</strong> I look after a set of internal tools,
+              including employee time tracking and our B2B platform.
+              <br />
+              I like designing and building
+              <strong>visually clear, reliable tools</strong> that feel good to
+              use, behave predictably, and stay pleasant to work on behind the
+              scenes.
+            </div>
+          </div>
+        </section>
+
+        <section aria-label="Technical profile">
+          <div class="block">
+            <div class="section-title">Stack &amp; Skills</div>
+            <div class="skills-grid" aria-label="Technical skills">
+              <span class="skill-chip">TypeScript</span>
+              <span class="skill-chip">C / C++</span>
+              <span class="skill-chip">Go</span>
+              <span class="skill-chip">React</span>
+              <span class="skill-chip">Next.js</span>
+              <span class="skill-chip">Node</span>
+              <span class="skill-chip">Express</span>
+              <span class="skill-chip">MongoDB</span>
+              <span class="skill-chip">SQL</span>
+              <span class="skill-chip">Docker</span>
+              <span class="skill-chip">GCP</span>
+              <span class="skill-chip">Kubernetes</span>
+              <span class="skill-chip">Linux</span>
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="section-title">Freetime</div>
+            <div class="section-body">
+              In my freetime I like to spend time with my wife, work on embedded
+              projects around <strong>audio</strong> and
+              <strong>smart home tech</strong>, plus dabbling in a bit of
+              <strong>3D printing</strong>. Whenever I can, I also contribute to
+              various <strong>open source</strong> projects.
+            </div>
+          </div>
+
+          <div class="block">
+            <div class="section-title">Links</div>
+            <div class="section-body links-list">
+              <div class="link-item">
+                <a
+                  class="underline"
+                  href="https://github.com/dwrth"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  GitHub: @dwrth
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-label="external link"
+                    style="
+                      display: inline;
+                      vertical-align: middle;
+                      margin-left: 2px;
+                    "
+                    width="13"
+                    height="13"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M10.5 3.5H4.75A1.25 1.25 0 0 0 3.5 4.75v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V8.5"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 3.5h-2m2 0v2M12.5 3.5l-4.5 4.5"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+              <div class="link-item">
+                <a
+                  class="underline"
+                  href="https://www.linkedin.com/in/dwrth"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn: @dwrth
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-label="external link"
+                    style="
+                      display: inline;
+                      vertical-align: middle;
+                      margin-left: 2px;
+                    "
+                    width="13"
+                    height="13"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                  >
+                    <path
+                      d="M10.5 3.5H4.75A1.25 1.25 0 0 0 3.5 4.75v6.5c0 .69.56 1.25 1.25 1.25h6.5c.69 0 1.25-.56 1.25-1.25V8.5"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                    <path
+                      d="M12.5 3.5h-2m2 0v2M12.5 3.5l-4.5 4.5"
+                      stroke="currentColor"
+                      stroke-width="1.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <div
+      style="
+        margin-top: 12px;
+        font-size: 11px;
+        color: var(--fg-soft);
+        text-align: center;
+      "
+    >
+      &copy; 2025 - built with vanilla HTML and CSS by David Werth
+    </div>
+  </body>
+</html>
