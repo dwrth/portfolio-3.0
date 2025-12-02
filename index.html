@@ -81,8 +81,14 @@
       }
 
       body::-webkit-scrollbar-thumb {
-        background-color: var(--border-subtle);
+        background-color: var(--accent);
         border-radius: 999px;
+      }
+
+      @supports (-webkit-touch-callout: none) {
+        body {
+          scrollbar-color: var(--accent) transparent;
+        }
       }
 
       .shell {
@@ -129,8 +135,15 @@
       }
 
       .shell-body::-webkit-scrollbar-thumb {
-        background-color: var(--border-subtle);
+        background-color: var(--accent);
         border-radius: 999px;
+      }
+
+      @supports (-webkit-touch-callout: none) {
+        .shell-body {
+          scrollbar-color: var(--accent) transparent;
+          -webkit-overflow-scrolling: touch;
+        }
       }
 
       @media (max-width: 720px) {
